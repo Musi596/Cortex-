@@ -59,7 +59,7 @@ def set_api_key(provider: str, key: str) -> None:
 
 def get_model() -> str:
     config = load_config()
-    return config.get("model", "gpt-4")
+    return config.get("model") or os.environ.get("CORTEX_MODEL", "gpt-4")
 
 
 def set_model(model: str) -> None:
