@@ -8,6 +8,15 @@ HOME = Path.home()
 CONFIG_DIR = HOME / ".config" / "cortex"
 CONFIG_FILE = CONFIG_DIR / "config.json"
 
+SUPPORTED_PROVIDERS = [
+    "openai",
+    "anthropic",
+    "gemini",
+    "groq",
+    "mercury",
+    "local",
+]
+
 
 def load_config() -> dict:
     if CONFIG_FILE.exists():
@@ -51,4 +60,11 @@ def set_model(model: str) -> None:
 
 def get_provider() -> str:
     config = load_config()
-    return config.get("provider", "openai")
+    provider = config.get("provider", "openai")
+    if provider not in SUPPORTED_PROVIDERS:
+        return "openai"
+    return provider
+
+
+def list_providers() -> list:
+    return SUPPORTED_PROVIDERS
