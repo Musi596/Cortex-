@@ -4,7 +4,7 @@ import pytest
 from io import StringIO
 import sys
 
-from ai_cli.ui.display import format_response, print_info, print_success, print_error
+from ai_cli.ui.display import format_response, print_info, print_success, print_error, print_warning
 from ai_cli.ui.themes import get_theme, list_themes, THEME_DEFAULT
 
 
