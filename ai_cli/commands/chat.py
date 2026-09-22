@@ -4,15 +4,18 @@ import sys
 
 from ai_cli.ui.display import print_banner, print_header, print_info, format_response
 from ai_cli.config import get_model, get_provider
-from ai_cli.utils import sanitize_input
+from ai_cli.utils import sanitize_input, parse_model_alias
 from ai_cli.providers.openai import OpenAIProvider
 from ai_cli.providers.local import LocalProvider
 from ai_cli.providers.anthropic import AnthropicProvider
+from ai_cli.providers.gemini import GeminiProvider
+from ai_cli.providers.groq import GroqProvider
+from ai_cli.providers.mercury import MercuryProvider
 
 
 def chat_command(args):
     print_banner()
-    model = args.model or get_model()
+    model = parse_model_alias(args.model or get_model())
     provider_name = get_provider()
 
     provider = _get_provider(provider_name, model)
@@ -47,4 +50,10 @@ def _get_provider(name: str, model: str):
         return LocalProvider(model=model)
     if name == "anthropic":
         return AnthropicProvider(model=model)
+    if name == "gemini":
+        return GeminiProvider(model=model)
+    if name == "groq":
+        return GroqProvider(model=model)
+    if name == "mercury":
+        return MercuryProvider(model=model)
     return OpenAIProvider(model=model)
