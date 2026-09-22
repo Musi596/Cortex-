@@ -12,6 +12,12 @@ All notable changes to this project will be documented in this file.
 - Chat history storage
 - Spinner and progress indicators
 - Full test suite
+- Input sanitization in chat command
+- Provider class exports via __init__
+- README with badges, features table, provider matrix
 
-### Breaking Changes
-- None
+### Bug Fixes
+- Move requests import to top of OpenAI provider for performance
+
+### Performance
+- Pre-import requests in OpenAI provider instead of lazy import
