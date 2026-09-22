@@ -39,7 +39,7 @@ class AnthropicProvider(BaseProvider):
         return ["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240924"]
 
     def is_available(self) -> bool:
-        return bool(self.api_key) and self.api_key.startswith("sk-ant-")
+        return bool(self.api_key) and len(self.api_key) > 20
 
     def __repr__(self):
         return f"AnthropicProvider(model={self.model}, key_set={bool(self.api_key)})"

@@ -17,13 +17,7 @@ SUPPORTED_PROVIDERS = [
     "local",
 ]
 
-PROVIDER_KEY_PATTERNS = {
-    "openai": lambda key: key.startswith("sk-") and not key.startswith("sk-ant-"),
-    "anthropic": lambda key: key.startswith("sk-ant-"),
-    "gemini": lambda key: key.startswith("AIza"),
-    "groq": lambda key: key.startswith("gsk_"),
-    "mercury": lambda key: key.startswith("mercury-"),
-}
+PROVIDER_KEY_PATTERNS = {}
 
 
 def load_config() -> dict:

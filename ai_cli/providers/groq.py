@@ -43,7 +43,7 @@ class GroqProvider(BaseProvider):
         ]
 
     def is_available(self) -> bool:
-        return bool(self.api_key) and self.api_key.startswith("gsk_")
+        return bool(self.api_key) and len(self.api_key) > 10
 
     def __repr__(self):
         return f"GroqProvider(model={self.model}, key_set={bool(self.api_key)})"
