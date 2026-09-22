@@ -3,6 +3,8 @@
 import os
 from typing import Optional
 
+import requests
+
 from ai_cli.providers.base import BaseProvider
 from ai_cli.config import get_api_key
 
