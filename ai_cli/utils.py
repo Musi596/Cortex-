@@ -58,7 +58,7 @@ def parse_model_alias(model: str) -> str:
         "llama3": "llama3",
         "mistral": "mistral",
         "phi": "phi3",
-        "gemini": "gemini-1.5-pro",
+        "gemini": "gemini-2.0-flash",
         "gem": "gemini-1.5-pro",
         "gemini15": "gemini-1.5-pro",
         "gem15": "gemini-1.5-pro",
