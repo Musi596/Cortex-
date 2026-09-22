@@ -18,7 +18,6 @@ class AnthropicProvider(BaseProvider):
     def generate(self, prompt: str) -> str:
         if not self.api_key:
             raise ValueError("Anthropic API key not configured")
-        import requests
         response = requests.post(
             f"{self.base_url}/messages",
             headers={
@@ -40,7 +39,7 @@ class AnthropicProvider(BaseProvider):
         return ["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240924"]
 
     def is_available(self) -> bool:
-        return bool(self.api_key)
+        return bool(self.api_key) and self.api_key.startswith("sk-ant-")
 
     def __repr__(self):
         return f"AnthropicProvider(model={self.model}, key_set={bool(self.api_key)})"

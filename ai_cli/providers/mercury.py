@@ -41,7 +41,7 @@ class MercuryProvider(BaseProvider):
         ]
 
     def is_available(self) -> bool:
-        return bool(self.api_key)
+        return bool(self.api_key) and self.api_key.startswith("mercury-")
 
     def __repr__(self):
         return f"MercuryProvider(model={self.model}, key_set={bool(self.api_key)})"

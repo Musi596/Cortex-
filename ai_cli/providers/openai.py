@@ -37,7 +37,7 @@ class OpenAIProvider(BaseProvider):
         return ["gpt-4", "gpt-4-turbo", "gpt-3.5-turbo", "gpt-4o", "gpt-4o-mini"]
 
     def is_available(self) -> bool:
-        return bool(self.api_key)
+        return bool(self.api_key) and self.api_key.startswith("sk-") and not self.api_key.startswith("sk-ant-")
 
     def __repr__(self):
         return f"OpenAIProvider(model={self.model}, key_set={bool(self.api_key)})"

@@ -3,7 +3,7 @@
 import sys
 
 from ai_cli.ui.display import print_banner, print_header, print_info, print_error, format_response
-from ai_cli.config import get_model, get_provider
+from ai_cli.config import get_model, get_provider, detect_provider
 from ai_cli.utils import sanitize_input, parse_model_alias
 from ai_cli.providers.openai import OpenAIProvider
 from ai_cli.providers.local import LocalProvider
@@ -17,6 +17,8 @@ def chat_command(args):
     print_banner()
     model = parse_model_alias(args.model or get_model())
     provider_name = get_provider()
+    if provider_name == "openai":
+        provider_name = detect_provider()
 
     provider = _get_provider(provider_name, model)
     if not provider.is_available():

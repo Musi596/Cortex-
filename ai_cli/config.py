@@ -17,6 +17,14 @@ SUPPORTED_PROVIDERS = [
     "local",
 ]
 
+PROVIDER_KEY_PATTERNS = {
+    "openai": lambda key: key.startswith("sk-") and not key.startswith("sk-ant-"),
+    "anthropic": lambda key: key.startswith("sk-ant-"),
+    "gemini": lambda key: key.startswith("AIza"),
+    "groq": lambda key: key.startswith("gsk_"),
+    "mercury": lambda key: key.startswith("mercury-"),
+}
+
 
 def load_config() -> dict:
     if CONFIG_FILE.exists():
@@ -41,6 +49,14 @@ def get_api_key(provider: str = "openai") -> Optional[str]:
     return os.environ.get(f"{provider.upper()}_API_KEY")
 
 
+def detect_provider() -> str:
+    for provider in ["openai", "anthropic", "gemini", "groq", "mercury"]:
+        key = get_api_key(provider)
+        if key and PROVIDER_KEY_PATTERNS.get(provider, lambda k: bool(k))(key):
+            return provider
+    return "openai"
+
+
 def set_api_key(provider: str, key: str) -> None:
     config = load_config()
     config[f"{provider}_api_key"] = key
@@ -62,7 +78,7 @@ def get_provider() -> str:
     config = load_config()
     provider = config.get("provider", "openai")
     if provider not in SUPPORTED_PROVIDERS:
-        return "openai"
+        return detect_provider()
     return provider
 
 

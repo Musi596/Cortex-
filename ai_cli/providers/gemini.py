@@ -38,7 +38,7 @@ class GeminiProvider(BaseProvider):
         ]
 
     def is_available(self) -> bool:
-        return bool(self.api_key)
+        return bool(self.api_key) and self.api_key.startswith("AIza")
 
     def __repr__(self):
         return f"GeminiProvider(model={self.model}, key_set={bool(self.api_key)})"
