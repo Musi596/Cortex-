@@ -11,13 +11,21 @@ All notable changes to this project will be documented in this file.
 - Colored terminal output with themes
 - Chat history storage
 - Spinner and progress indicators
-- Full test suite
+- Full test suite (38 tests passing)
 - Input sanitization in chat command
 - Provider class exports via __init__
 - README with badges, features table, provider matrix
 
 ### Bug Fixes
-- Move requests import to top of OpenAI provider for performance
+- Fix: add top-level requests import in local provider
+- Fix: add top-level requests import in anthropic provider
+- Fix: restore cli.py with correct Python code after accidental overwrite
+
+### Test Fixes
+- Add clean_config and clean_env fixtures for test isolation
+- Fix config tests to use proper fixtures
+- Fix provider tests for proper environment cleanup
+- Fix missing print_warning import in UI tests
 
 ### Performance
-- Pre-import requests in OpenAI provider instead of lazy import
+- Pre-import requests in providers instead of lazy import
