@@ -5,12 +5,12 @@ import pytest
 from ai_cli.config import load_config, save_config, get_api_key, set_api_key, get_model, set_model
 
 
-def test_load_config_empty():
+def test_load_config_empty(clean_config):
     config = load_config()
     assert isinstance(config, dict)
 
 
-def test_save_and_load_config():
+def test_save_and_load_config(clean_config):
     config = {"openai_api_key": "test-key", "model": "gpt-4"}
     save_config(config)
     loaded = load_config()
@@ -30,7 +30,7 @@ def test_set_and_get_model(clean_config):
     assert model == "gpt-4o"
 
 
-def test_get_model_default():
+def test_get_model_default(clean_config):
     config = load_config()
     assert isinstance(config, dict)
 
