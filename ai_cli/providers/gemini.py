@@ -19,7 +19,7 @@ class GeminiProvider(BaseProvider):
         if not self.api_key:
             raise ValueError("Gemini API key not configured")
         response = requests.post(
-            f"{self.base_url}/models/{self.model or 'gemini-2.0-flash'}:generateContent",
+            f"{self.base_url}/models/{self.model or 'gemini-3.6-flash'}:generateContent",
             params={"key": self.api_key},
             json={
                 "contents": [{"parts": [{"text": prompt}]}],
@@ -31,6 +31,7 @@ class GeminiProvider(BaseProvider):
 
     def list_models(self) -> list:
         return [
+            "gemini-3.6-flash",
             "gemini-2.0-flash",
             "gemini-1.5-pro",
             "gemini-1.5-flash",
