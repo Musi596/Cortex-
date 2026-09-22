@@ -3,6 +3,9 @@
 from typing import Optional
 
 
+import sys
+
+
 def print_header(title: str, width: int = 60) -> None:
     line = "=" * width
     print(f"\n{line}")
@@ -43,9 +46,17 @@ def format_response(text: str, max_width: int = 80) -> str:
 
 
 def print_banner() -> None:
-    print("\033[1;36m")
-    print("╔══════════════════════════════════════╗")
-    print("║         C O R T E X  CLI            ║")
-    print("║    AI Management in Your Terminal    ║")
-    print("╚══════════════════════════════════════╝")
-    print("\033[0m")
+    try:
+        print("\033[1;36m")
+        print("╔══════════════════════════════════════╗")
+        print("║         C O R T E X  CLI            ║")
+        print("║    AI Management in Your Terminal    ║")
+        print("╚══════════════════════════════════════╝")
+        print("\033[0m")
+    except UnicodeEncodeError:
+        print("")
+        print("=" * 42)
+        print("  C O R T E X  CLI")
+        print("  AI Management in Your Terminal")
+        print("=" * 42)
+        print("")
