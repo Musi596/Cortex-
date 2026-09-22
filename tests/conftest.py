@@ -42,4 +42,7 @@ def clean_config(monkeypatch):
 def clean_env(monkeypatch, clean_config):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
+    monkeypatch.delenv("MERCURY_API_KEY", raising=False)
     monkeypatch.delenv("CORTEX_BASE_URL", raising=False)
