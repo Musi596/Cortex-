@@ -16,6 +16,7 @@ def main():
         epilog="Run 'cortex <command> --help' for more info.",
     )
     parser.add_argument("--version", action="version", version=f"cortex {__version__}")
+    parser.add_argument("--status", action="store_true", help="Show status (shorthand)")
 
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
@@ -31,6 +32,10 @@ def main():
     history_parser.add_argument("--limit", "-l", type=int, default=10, help="Limit entries")
 
     args = parser.parse_args()
+
+    if args.status:
+        status_command(args)
+        sys.exit(0)
 
     if not args.command:
         parser.print_help()

@@ -2,7 +2,7 @@
 
 import sys
 
-from ai_cli.ui.display import print_banner, print_header, print_info, format_response
+from ai_cli.ui.display import print_banner, print_header, print_info, print_error, format_response
 from ai_cli.config import get_model, get_provider
 from ai_cli.utils import sanitize_input, parse_model_alias
 from ai_cli.providers.openai import OpenAIProvider
@@ -27,9 +27,10 @@ def chat_command(args):
 
     if args.message:
         message = sanitize_input(args.message)
-        response = provider.generate(message)
-        print(f"\n\033[1mYou:\033[0m {message}")
-        print(f"\033[1mAI:\033[0m\n{format_response(response)}")
+        response = _safe_generate(provider, message)
+        if response:
+            print(f"\n\033[1mYou:\033[0m {message}")
+            print(f"\033[1mAI:\033[0m\n{format_response(response)}")
     else:
         print("Interactive mode. Type 'exit' to quit.\n")
         while True:
@@ -38,11 +39,20 @@ def chat_command(args):
                 if user_input.lower() in ("exit", "quit", "q"):
                     break
                 message = sanitize_input(user_input)
-                response = provider.generate(message)
-                print(f"\033[1mAI:\033[0m\n{format_response(response)}")
+                response = _safe_generate(provider, message)
+                if response:
+                    print(f"\033[1mAI:\033[0m\n{format_response(response)}")
             except (KeyboardInterrupt, EOFError):
                 print("\nGoodbye!")
                 break
+
+
+def _safe_generate(provider, message):
+    try:
+        return provider.generate(message)
+    except Exception as e:
+        print_error(f"Error: {e}")
+        return None
 
 
 def _get_provider(name: str, model: str):
