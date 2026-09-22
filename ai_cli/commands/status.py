@@ -9,6 +9,9 @@ from ai_cli.config import get_provider, get_model
 from ai_cli.providers.openai import OpenAIProvider
 from ai_cli.providers.local import LocalProvider
 from ai_cli.providers.anthropic import AnthropicProvider
+from ai_cli.providers.gemini import GeminiProvider
+from ai_cli.providers.groq import GroqProvider
+from ai_cli.providers.mercury import MercuryProvider
 
 
 def status_command(args):
@@ -25,6 +28,9 @@ def status_command(args):
         ("OpenAI", OpenAIProvider()),
         ("Local", LocalProvider()),
         ("Anthropic", AnthropicProvider()),
+        ("Gemini", GeminiProvider()),
+        ("Groq", GroqProvider()),
+        ("Mercury", MercuryProvider()),
     ]
 
     print()
