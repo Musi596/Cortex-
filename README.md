@@ -6,7 +6,7 @@ Manage AI in your terminal. [![License: MIT](https://img.shields.io/badge/Licens
 
 ## Возможности
 
-- 🧠 **Мульти-провайдер** — OpenAI, Anthropic, локальные модели
+- 🧠 **Мульти-провайдер** — OpenAI, Anthropic, Gemini, Groq, Mercury, локальные модели
 - 🎨 **Красивый интерфейс** — цвета, тема, спиннеры
 - 📜 **История диалогов** — сохраняется автоматически
 - 🔄 **Горячая смена моделей** — без перезапуска
@@ -29,6 +29,9 @@ cortex chat
 # Или одиночное сообщение
 cortex chat --message "Привет, как дела?"
 
+# Выбрать провайдер
+CORTEX_PROVIDER=gemini cortex chat --message "Привет"
+
 # Показать статус
 cortex status
 
@@ -45,8 +48,7 @@ cortex history
 |-----------|-----------|--------------|
 | OpenAI | `OPENAI_API_KEY` | gpt-4 |
 | Anthropic | `ANTHROPIC_API_KEY` | claude-3-opus |
+| Gemini | `GEMINI_API_KEY` | gemini-1.5-pro |
+| Groq | `GROQ_API_KEY` | llama-3.3-70b-versatile |
+| Mercury | `MERCURY_API_KEY` | mercury-standard |
 | Local | `CORTEX_BASE_URL` | localhost:11434 |
-
-## Лицензия
-
-MIT
