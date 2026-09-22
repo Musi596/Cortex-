@@ -18,7 +18,6 @@ class OpenAIProvider(BaseProvider):
     def generate(self, prompt: str) -> str:
         if not self.api_key:
             raise ValueError("OpenAI API key not configured")
-        import requests
         response = requests.post(
             f"{self.base_url}/chat/completions",
             headers={
