@@ -30,6 +30,8 @@ def chat_command(args):
     if not _model_matches_provider(model, provider_name):
         model = default_model
 
+    provider.model = model
+
     print_header(f"Chat — {provider}")
 
     if args.message:
