@@ -35,6 +35,12 @@ def validate_api_key(provider: str, key: str) -> bool:
         return key.startswith("sk-") and len(key) > 20
     if provider == "anthropic":
         return key.startswith("sk-ant-") and len(key) > 20
+    if provider == "gemini":
+        return key.startswith("AIza") and len(key) > 30
+    if provider == "groq":
+        return key.startswith("gsk_") and len(key) > 20
+    if provider == "mercury":
+        return key.startswith("mercury-") and len(key) > 20
     return len(key) > 10
 
 
@@ -52,6 +58,14 @@ def parse_model_alias(model: str) -> str:
         "llama3": "llama3",
         "mistral": "mistral",
         "phi": "phi3",
+        "gemini": "gemini-1.5-pro",
+        "gem": "gemini-1.5-pro",
+        "gemini15": "gemini-1.5-pro",
+        "gem15": "gemini-1.5-pro",
+        "gemma": "gemma-7b-it",
+        "llama33": "llama-3.3-70b-versatile",
+        "llama-33": "llama-3.3-70b-versatile",
+        "mercury": "mercury-standard",
     }
     return aliases.get(model.lower(), model)
 
