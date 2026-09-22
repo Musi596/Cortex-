@@ -6,13 +6,17 @@ All notable changes to this project will be documented in this file.
 - Initial CLI with chat, models, status, history commands
 - OpenAI provider with chat completions API
 - Anthropic provider with Messages API
+- Gemini provider (Google)
+- Groq provider (ultra-fast LLM inference)
+- Mercury provider
 - Local model provider (Ollama-compatible)
-- Config management with env variable fallback
+- Config management with env variable fallback and provider validation
 - Colored terminal output with themes
 - Chat history storage
 - Spinner and progress indicators
 - Full test suite (38 tests passing)
 - Input sanitization in chat command
+- Model alias parsing (gpt, claude, llama, gemini, groq, mercury)
 - Provider class exports via __init__
 - README with badges, features table, provider matrix
 
