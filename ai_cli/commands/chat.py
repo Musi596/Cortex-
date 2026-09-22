@@ -15,21 +15,26 @@ from ai_cli.providers.mercury import MercuryProvider
 
 def chat_command(args):
     print_banner()
-    model = parse_model_alias(args.model or get_model())
     provider_name = get_provider()
     if provider_name == "openai":
         provider_name = detect_provider()
 
-    provider = _get_provider(provider_name, model)
+    provider = _get_provider(provider_name, None)
     if not provider.is_available():
         print("Provider not available. Configure API key first.")
         sys.exit(1)
+
+    default_model = provider.list_models()[0]
+    model = parse_model_alias(args.model or get_model() or default_model)
+
+    if not _model_matches_provider(model, provider_name):
+        model = default_model
 
     print_header(f"Chat — {provider}")
 
     if args.message:
         message = sanitize_input(args.message)
-        response = _safe_generate(provider, message)
+        response = _safe_generate(provider, model, message)
         if response:
             print(f"\n\033[1mYou:\033[0m {message}")
             print(f"\033[1mAI:\033[0m\n{format_response(response)}")
@@ -41,7 +46,7 @@ def chat_command(args):
                 if user_input.lower() in ("exit", "quit", "q"):
                     break
                 message = sanitize_input(user_input)
-                response = _safe_generate(provider, message)
+                response = _safe_generate(provider, model, message)
                 if response:
                     print(f"\033[1mAI:\033[0m\n{format_response(response)}")
             except (KeyboardInterrupt, EOFError):
@@ -49,7 +54,23 @@ def chat_command(args):
                 break
 
 
-def _safe_generate(provider, message):
+def _model_matches_provider(model: str, provider: str) -> bool:
+    model_lower = model.lower()
+    if provider == "openai":
+        return model_lower.startswith("gpt")
+    if provider == "anthropic":
+        return model_lower.startswith("claude")
+    if provider == "gemini":
+        return model_lower.startswith("gemini")
+    if provider == "groq":
+        return "llama" in model_lower or "mixtral" in model_lower or "gemma" in model_lower
+    if provider == "mercury":
+        return model_lower.startswith("mercury")
+    return True
+
+
+def _safe_generate(provider, model, message):
+    provider.model = model
     try:
         return provider.generate(message)
     except Exception as e:
