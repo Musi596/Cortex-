@@ -16,6 +16,8 @@ Configuration management.
 - `set_api_key(provider, key)` → `None`
 - `get_model()` → `str`
 - `set_model(model)` → `None`
+- `get_provider()` → `str`
+- `list_providers()` → `list`
 
 ## Module: ai_cli.providers.base
 
@@ -36,6 +38,27 @@ OpenAI implementation.
 Anthropic implementation.
 
 - `AnthropicProvider(model, api_key)`
+
+## Module: ai_cli.providers.gemini
+
+Google Gemini implementation.
+
+- `GeminiProvider(model, api_key)`
+- Base URL: `https://generativelanguage.googleapis.com/v1beta`
+
+## Module: ai_cli.providers.groq
+
+Groq implementation (ultra-fast inference).
+
+- `GroqProvider(model, api_key)`
+- Base URL: `https://api.groq.com/openai/v1`
+
+## Module: ai_cli.providers.mercury
+
+Mercury implementation.
+
+- `MercuryProvider(model, api_key)`
+- Base URL: `https://api.mercury.ai/v1`
 
 ## Module: ai_cli.providers.local
 
@@ -68,3 +91,14 @@ Progress indicators.
 
 - `Spinner(message)` — Terminal spinner
 - `show_progress(steps, func)` — Step-by-step progress
+
+## Module: ai_cli.utils
+
+Utility functions.
+
+- `sanitize_input(text)` → `str`
+- `format_duration(seconds)` → `str`
+- `truncate(text, length)` → `str`
+- `validate_api_key(provider, key)` → `bool`
+- `parse_model_alias(model)` → `str`
+- `escape_markdown(text)` → `str`
